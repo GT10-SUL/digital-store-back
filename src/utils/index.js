@@ -1,12 +1,24 @@
+const jwt = require("jsonwebtoken");
+
 function rotaProtegida(req, res, next){
-    if(!req.headers.authorization){
-        res.send({
+    const token = req.headers.authorization;
+    
+    if(!token){
+        res.status(401).send({
             tipo: "warning",
             mensagem: "Não autorizado"
         });
     }
 
-    next();
+    jwt.verify(token.split(" ")[1], process.env.SEGREDO, (error) => {
+        if(error){
+            res.status(401).send({
+                tipo: "warning",
+                mensagem: "token inválido"
+            })
+        }
+        next();
+    });
 }
 
 module.exports = {
