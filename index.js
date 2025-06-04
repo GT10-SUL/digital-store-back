@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const port = 8000;
 
@@ -7,6 +8,7 @@ const { rotaProtegida } = require("./src/utils");
 const usuariosRoutes = require("./src/routes/usuariosRoutes");
 const produtosRoutes = require("./src/routes/produtosRoutes");
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -16,7 +18,7 @@ app.get("/", (req, res) => {
 app.post("/login", async (req, res) => {
     res.send(await login(req.body));
 });
-app.use("/usuarios", rotaProtegida, usuariosRoutes);
+app.use("/usuarios", usuariosRoutes);
 app.use("/produtos", rotaProtegida, produtosRoutes);
 
 
