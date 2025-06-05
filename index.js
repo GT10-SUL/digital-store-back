@@ -7,6 +7,8 @@ const { login } = require("./src/controller/usuariosController");
 const { rotaProtegida } = require("./src/utils");
 const usuariosRoutes = require("./src/routes/usuariosRoutes");
 const produtosRoutes = require("./src/routes/produtosRoutes");
+const categoriasRoutes = require("./src/routes/categoriasRoutes");
+const marcasRoutes = require("./src/routes/marcasRoutes");
 
 app.use(cors());
 app.use(express.json());
@@ -18,8 +20,10 @@ app.get("/", (req, res) => {
 app.post("/login", async (req, res) => {
     res.send(await login(req.body));
 });
-app.use("/usuarios", usuariosRoutes);
-app.use("/produtos", rotaProtegida, produtosRoutes);
+app.use("/usuarios", rotaProtegida, usuariosRoutes);
+app.use("/produtos", produtosRoutes);
+app.use("/categorias", categoriasRoutes);
+app.use("/marcas", marcasRoutes);
 
 
 // erro 404
