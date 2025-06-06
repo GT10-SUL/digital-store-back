@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 app.post("/login", async (req, res) => {
     res.send(await login(req.body));
 });
+app.use('/files', express.static('./src/uploads/produtos'));
 app.use("/usuarios", rotaProtegida, usuariosRoutes);
 app.use("/produtos", produtosRoutes);
 app.use("/categorias", categoriasRoutes);

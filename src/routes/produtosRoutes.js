@@ -10,7 +10,7 @@ router.get("/:id", async (req, res) => {
     res.send(await buscarUmProduto(req.params.id));
 });
 router.post("/", rotaProtegida, async (req, res) => {
-    res.send(await criarProduto(req.body));
+    res.send(await criarProduto(req));
 });
 router.put("/:id", rotaProtegida, async (req, res) => {
     res.send( await editarProduto(req.params.id, req.body));
